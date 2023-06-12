@@ -8,13 +8,16 @@ import {
 
 const BASE_URL = 'http://localhost:3001/api/v1';
 
+const getToken = (token) => {
+    return localStorage.getItem('token') !== null
+        ? localStorage
+              .getItem('token')
+              .slice(1, localStorage.getItem('token').length - 1)
+        : token;
+};
+
 const userProfile = (value_token) => (dispatch) => {
-    const token =
-        localStorage.getItem('token') !== null
-            ? localStorage
-                  .getItem('token')
-                  .slice(1, localStorage.getItem('token').length - 1)
-            : value_token;
+    const token = getToken(value_token);
     axios
         .post(
             BASE_URL + '/user/profile',
@@ -30,12 +33,7 @@ const userProfile = (value_token) => (dispatch) => {
 };
 
 const updateProfile = (firstName, lastName, value_token) => (dispatch) => {
-    const token =
-        localStorage.getItem('token') !== null
-            ? localStorage
-                  .getItem('token')
-                  .slice(1, localStorage.getItem('token').length - 1)
-            : value_token;
+    const token = getToken(value_token);
     axios
         .put(
             BASE_URL + '/user/profile',
