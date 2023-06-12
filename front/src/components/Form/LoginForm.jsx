@@ -14,6 +14,30 @@ const initialState = {
     rememberMe: '',
 };
 
+const inputList = [
+    {
+        id: 'email',
+        className: `${styles.input_wrapper}`,
+        type: 'email',
+        autoComplete: 'email',
+        label: 'Email',
+    },
+    {
+        id: 'password',
+        className: `${styles.input_wrapper}`,
+        type: 'password',
+        autoComplete: 'current-password',
+        label: 'Password',
+    },
+    {
+        id: 'rememberMe',
+        className: `${styles.input_remember}`,
+        type: 'checkbox',
+        autoComplete: '',
+        label: 'Remember me',
+    },
+];
+
 const LoginForm = () => {
     document.title = 'Log In';
 
@@ -68,38 +92,19 @@ const LoginForm = () => {
         <form onSubmit={handleLogin} className={styles.form}>
             <i className={`fa fa-user-circle ${styles.icon}`}></i>
             <h1>Login</h1>
-            <div className={styles.input_wrapper}>
-                <label htmlFor='email'>Email</label>
-                <input
-                    id='email'
-                    type='email'
-                    name='email'
-                    value={email}
-                    onChange={handleChange}
-                    autoComplete='email'
-                />
-            </div>
-            <div className={styles.input_wrapper}>
-                <label htmlFor='password'>Password</label>
-                <input
-                    id='password'
-                    type='password'
-                    name='password'
-                    value={password}
-                    onChange={handleChange}
-                    autoComplete='new-password'
-                />
-            </div>
-            <div className={styles.input_remember}>
-                <input
-                    type='checkbox'
-                    id='rememberMe'
-                    name='rememberMe'
-                    value={rememberMe}
-                    onChange={handleChange}
-                />
-                <label htmlFor='rememberMe'>Remember me</label>
-            </div>
+            {inputList.map(({ id, className, type, autoComplete, label }) => (
+                <div key={id} className={className}>
+                    <label htmlFor={id}>{label}</label>
+                    <input
+                        id={id}
+                        type={type}
+                        name={id}
+                        value={formValue[id]}
+                        onChange={handleChange}
+                        autoComplete={autoComplete}
+                    />
+                </div>
+            ))}
             <button type='submit'>Login</button>
         </form>
     );
