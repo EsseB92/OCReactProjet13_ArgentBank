@@ -8,29 +8,21 @@ import styles from './Form.module.scss';
 const Form = () => {
     const [isRegistering, setIsRegistering] = useState(false);
 
+    const form = isRegistering ? <RegisterForm /> : <LoginForm />;
+    const text = isRegistering
+        ? 'Already have an account'
+        : "Don't have an account";
+    const onClickText = isRegistering ? 'Login now' : 'Register now';
+
     return (
         <>
-            {!isRegistering ? (
-                <>
-                    <LoginForm />
-                    <div className={styles.link}>
-                        <p>Don't have an account</p>
-                        <p onClick={() => setIsRegistering(!isRegistering)}>
-                            Register now
-                        </p>
-                    </div>
-                </>
-            ) : (
-                <>
-                    <RegisterForm />
-                    <div className={styles.link}>
-                        <p>Already have an account</p>
-                        <p onClick={() => setIsRegistering(!isRegistering)}>
-                            Login now
-                        </p>
-                    </div>
-                </>
-            )}
+            {form}
+            <div className={styles.link}>
+                <p>{text}</p>
+                <p onClick={() => setIsRegistering(!isRegistering)}>
+                    {onClickText}
+                </p>
+            </div>
         </>
     );
 };
