@@ -7,21 +7,21 @@ const profileInitialState = {
     error: null,
 };
 
-const updateProfile = (state, action, error = null) => {
+function updateProfile(state, action, error = null) {
     state.email = action.payload.body.email;
     state.firstName = action.payload.body.firstName;
     state.lastName = action.payload.body.lastName;
     state.id = action.payload.body.id;
     state.error = error;
-};
+}
 
-const clearProfile = (state, error) => {
+function clearProfile(state, error) {
     state.email = null;
     state.firstName = null;
     state.lastName = null;
     state.id = null;
     state.error = error;
-};
+}
 
 const profileSlice = createSlice({
     name: 'profile',
@@ -31,7 +31,7 @@ const profileSlice = createSlice({
             updateProfile(state, action);
         },
         userProfileFail: (state, action) => {
-            clearProfile(action.payload.message);
+            clearProfile(state, action.payload.message);
         },
         userUpdateSuccess: (state, action) => {
             updateProfile(state, action);
