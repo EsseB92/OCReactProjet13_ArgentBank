@@ -16,11 +16,15 @@ const Profile = () => {
         state.authStatus.token !== null
             ? state.authStatus.token
             : localStorage.getItem('token') !== null
-            ? localStorage.getItem('token')
+            ? JSON.parse(localStorage.getItem('token'))
             : null
     );
 
-    dispatch(profileService.userProfile(token));
+    useEffect(() => {
+        if (token !== null) {
+            dispatch(profileService.userProfile(token));
+        }
+    }, [token, dispatch]);
 
     return (
         <main className={`${styles.main} bg-dark`}>

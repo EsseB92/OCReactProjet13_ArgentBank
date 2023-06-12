@@ -48,7 +48,10 @@ const LoginForm = () => {
     };
 
     useEffect(() => {
-        if (token !== null || localStorage.getItem('token') !== null) {
+        if (
+            token !== null ||
+            JSON.parse(localStorage.getItem('token')) !== null
+        ) {
             toast.success('User Login Successfully');
             navigate('/profile');
         }
