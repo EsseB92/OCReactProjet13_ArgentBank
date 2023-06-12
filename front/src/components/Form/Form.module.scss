@@ -22,8 +22,13 @@ form {
         &.input_remember {
             display: flex;
 
+            & > input {
+                cursor: pointer;
+            }
+
             & > label {
                 margin-left: 0.25rem;
+                cursor: pointer;
             }
         }
     }
