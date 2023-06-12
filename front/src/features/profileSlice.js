@@ -7,37 +7,37 @@ const profileInitialState = {
     error: null,
 };
 
+const updateProfile = (state, action, error = null) => {
+    state.email = action.payload.body.email;
+    state.firstName = action.payload.body.firstName;
+    state.lastName = action.payload.body.lastName;
+    state.id = action.payload.body.id;
+    state.error = error;
+};
+
+const clearProfile = (state, error) => {
+    state.email = null;
+    state.firstName = null;
+    state.lastName = null;
+    state.id = null;
+    state.error = error;
+};
+
 const profileSlice = createSlice({
     name: 'profile',
     initialState: profileInitialState,
     reducers: {
         userProfileSuccess: (state, action) => {
-            state.email = action.payload.body.email;
-            state.firstName = action.payload.body.firstName;
-            state.lastName = action.payload.body.lastName;
-            state.id = action.payload.body.id;
-            state.error = null;
+            updateProfile(state, action);
         },
         userProfileFail: (state, action) => {
-            state.email = null;
-            state.firstName = null;
-            state.lastName = null;
-            state.id = null;
-            state.error = action.payload.message;
+            clearProfile(action.payload.message);
         },
         userUpdateSuccess: (state, action) => {
-            state.email = action.payload.body.email;
-            state.firstName = action.payload.body.firstName;
-            state.lastName = action.payload.body.lastName;
-            state.id = action.payload.body.id;
-            state.error = null;
+            updateProfile(state, action);
         },
         userUpdateFail: (state, action) => {
-            state.email = action.payload.body.email;
-            state.firstName = action.payload.body.firstName;
-            state.lastName = action.payload.body.lastName;
-            state.id = action.payload.body.id;
-            state.error = action.payload.message;
+            updateProfile(state, action, action.payload.message);
         },
     },
 });
